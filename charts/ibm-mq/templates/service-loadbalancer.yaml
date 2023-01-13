@@ -16,6 +16,13 @@ apiVersion: v1
 kind: Service
 metadata:
   name: {{ include "ibm-mq.fullname" . }}-loadbalancer
+  annotations: 
+    service.beta.kubernetes.io/aws-load-balancer-backend-protocol: tcp
+    service.beta.kubernetes.io/aws-load-balancer-cross-zone-load-balancing-enabled: 'true'
+    service.beta.kubernetes.io/aws-load-balancer-nlb-target-type: instance
+    service.beta.kubernetes.io/aws-load-balancer-scheme: internal
+    service.beta.kubernetes.io/aws-load-balancer-target-group-attributes: preserve_client_ip.enabled=false
+    service.beta.kubernetes.io/aws-load-balancer-type: external
   labels:
     {{- include "ibm-mq.labels" . | nindent 4 }}
 spec:
