@@ -92,6 +92,10 @@ route:
     webconsole: true
     mqtraffic: true
   loadBalancer:
-    webconsole: true
+    webconsole: false
     mqtraffic: true
-    loadBalancerSourceRanges: ["10.0.0.0/8","162.76.0.0/16","192.168.0.0/16","169.184.0.0/16","172.16.0.0/12","100.64.0.0/10"]
+#    loadBalancerSourceRanges: ["10.0.0.0/8","162.76.0.0/16","192.168.0.0/16","169.184.0.0/16","172.16.0.0/12","100.64.0.0/10","173.48.0.0/12"]
+  ingress:
+    webconsole: true
+    mqtraffic: false
+#    loadBalancerSourceRanges: ["10.0.0.0/8","162.76.0.0/16","192.168.0.0/16","169.184.0.0/16","172.16.0.0/12","100.64.0.0/10","173.48.0.0/12"]
