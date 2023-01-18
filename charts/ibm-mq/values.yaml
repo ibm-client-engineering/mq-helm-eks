@@ -152,6 +152,21 @@ route:
     loadBalancer:
       webconsole: false
       mqtraffic: false
+      loadBalancerSourceRanges: []
+    ingress:
+      webconsole: 
+        enable: false
+        hostname: 
+        tls: 
+          enable: false 
+          secret: 
+      mqtraffic: 
+        enable: false
+        hostname: 
+        tls: 
+          enable: false
+          secret: 
+      loadBalancerSourceRanges: []
 
 # log section specifies settings for MQ error logs
 log:
