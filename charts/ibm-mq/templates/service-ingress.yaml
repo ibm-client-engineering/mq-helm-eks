@@ -13,7 +13,7 @@
 # limitations under the License.
 #    cert-manager.io/cluster-issuer: travelers-cluster-issuer
 #    cert-manager.io/common-name: travelors-mq-eks.ekslb.aws.travp.net
-{{- if (.Values.route.ingress.webconsole) }}
+{{- if (.Values.route.ingress.webconsole.enable) }}
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
@@ -40,7 +40,12 @@ spec:
         number: 9443
   ingressClassName: nginx
   rules:
-    - http:
+  {{- if .Values.route.ingress.webconsole.hostname }}
+    - host: {{ .Values.route.ingress.webconsole.hostname }}
+      http:
+  {{- else }}
+      - http: 
+  {{- end }}
         paths:
           - path: /
             pathType: Prefix
@@ -56,7 +61,7 @@ spec:
     - secretName: helmsecure
 {{- end }}
 ---
-{{- if (.Values.route.ingress.mqtraffic) }}
+{{- if (.Values.route.ingress.mqtraffic.enable) }}
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
@@ -81,7 +86,12 @@ spec:
         number: 1414
   ingressClassName: nginx
   rules:
-    - http:
+  {{- if .Values.route.ingress.webconsole.hostname }}
+    - host: {{ .Values.route.ingress.webconsole.hostname }}
+      http:
+  {{- else }}
+      - http: 
+  {{- end }}
         paths:
           - path: /
             pathType: Prefix
