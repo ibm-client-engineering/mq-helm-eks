@@ -1,0 +1,98 @@
+# © Copyright IBM Corporation 2022
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+# http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+#    cert-manager.io/cluster-issuer: travelers-cluster-issuer
+#    cert-manager.io/common-name: travelors-mq-eks.ekslb.aws.travp.net
+{{- if (.Values.route.ingress.webconsole) }}
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: {{ include "ibm-mq.fullname" . }}-console-ingress
+  annotations: 
+    alb.ingress.kubernetes.io/target-type: ip
+    {{- if .Values.route.ingress.loadBalancerSourceRanges }}
+#    alb.ingress.kubernetes.io/scheme: internal
+    alb.ingress.kubernetes.io/scheme: internet-facing
+    alb.ingress.kubernetes.io/inbound-cidrs: |- 
+      {{ range $group := .Values.route.ingress.loadBalancerSourceRanges -}}
+        "{{ $group }}"
+      {{ end }}
+    {{- end }}
+    nginx.ingress.kubernets.io/backend-protocol: HTTPS
+    nginx.ingress.kubernetes.io/ssl-redirect: "false"
+  labels:
+    {{- include "ibm-mq.labels" . | nindent 4 }}
+spec:
+  defaultBackend:
+    service: 
+      name: {{ include "ibm-mq.fullname" . }}
+      port:
+        number: 9443
+  ingressClassName: nginx
+  rules:
+    - http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: {{ include "ibm-mq.fullname" . }}-web
+                port: 
+                  number: 9443
+  tls:
+#  - hosts:
+#    - mq-eks-console.elb.us-east-1.amazonaws.com
+#    secretName: helmsecure
+    - secretName: helmsecure
+{{- end }}
+---
+{{- if (.Values.route.ingress.mqtraffic) }}
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: {{ include "ibm-mq.fullname" . }}-queue-ingress
+  annotations: 
+    alb.ingress.kubernetes.io/target-type: ip
+    {{- if .Values.route.ingress.loadBalancerSourceRanges }}
+    alb.ingress.kubernetes.io/scheme: internet-facing
+#    alb.ingress.kubernetes.io/scheme: internal
+    alb.ingress.kubernetes.io/inbound-cidrs: |- 
+      {{ range $group := .Values.route.ingress.loadBalancerSourceRanges -}}
+        "{{ $group }}"
+      {{ end }}
+    {{- end }}
+  labels:
+    {{- include "ibm-mq.labels" . | nindent 4 }}
+spec:
+  defaultBackend:
+    service: 
+      name: {{ include "ibm-mq.fullname" . }}
+      port:
+        number: 1414
+  ingressClassName: nginx
+  rules:
+    - http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: {{ include "ibm-mq.fullname" . }}-qm
+                port: 
+                  number: 1414
+  tls:
+#  - hosts:
+#    - mq-eks-qm.elb.us-east-1.amazonaws.com
+#    secretName: helmsecure
+    - secretName: helmsecure
+{{- end }}
