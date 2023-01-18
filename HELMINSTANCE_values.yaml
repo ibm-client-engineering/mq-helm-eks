@@ -42,16 +42,17 @@ queueManager:
   multiinstance:
     enable: false
   persistence:
-#    dataPVC:
-#      enable: false
-#      name: "data"
-#      size: 2Gi
-#      storageClassName: "ebs-sc"
-#    logPVC:
-#      enable: false
-#      name: "log"
-#      size: 2Gi
-#      storageClassName: "ebs-sc"
+# Set the storage class name to your available or desired storage class. Defaults to gp2.
+    dataPVC:
+      enable: false
+      name: "data"
+      size: 2Gi
+      storageClassName: "gp2"
+    logPVC:
+      enable: false
+      name: "log"
+      size: 2Gi
+      storageClassName: "gp2"
     qmPVC:
       enable: true
       name: "qm"
@@ -61,7 +62,6 @@ queueManager:
 security:
   context:
     fsGroup: 65534
-#    fsGroupChangePolicy: onRootMismatch
     supplementalGroups: [65534]
   initVolumeAsRoot: false
   runAsUser: 2001
@@ -94,7 +94,7 @@ route:
   loadBalancer:
     webconsole: false
     mqtraffic: true
-#    loadBalancerSourceRanges: ["10.0.0.0/8","162.76.0.0/16","192.168.0.0/16","169.184.0.0/16","172.16.0.0/12","100.64.0.0/10","173.48.0.0/12"]
+    loadBalancerSourceRanges: []
   ingress:
     webconsole: 
       enable: true
@@ -108,4 +108,4 @@ route:
       tls: 
         enable: true
         secret: helmsecure
-#    loadBalancerSourceRanges: ["10.0.0.0/8","162.76.0.0/16","192.168.0.0/16","169.184.0.0/16","172.16.0.0/12","100.64.0.0/10","173.48.0.0/12"]
+    loadBalancerSourceRanges: []
