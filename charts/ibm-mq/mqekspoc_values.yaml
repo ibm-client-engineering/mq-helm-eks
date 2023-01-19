@@ -98,13 +98,15 @@ route:
   ingress:
     webconsole: 
       enable: true
-      hostname: a.host.name
+      hostname: 
+      path: /ibmmq
       tls: 
         enable: true
         secret: helmsecure
     mqtraffic: 
       enable: false
       hostname: 
+      path: 
       tls: 
         enable: true
         secret: helmsecure

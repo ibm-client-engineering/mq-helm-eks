@@ -28,8 +28,9 @@ metadata:
         {{ $group | quote }}
       {{ end }}
     {{- end }}
-    nginx.ingress.kubernets.io/backend-protocol: HTTPS
-    nginx.ingress.kubernetes.io/ssl-redirect: "false"
+    nginx.ingress.kubernetes.io/backend-protocol: HTTPS
+    nginx.ingress.kubernetes.io/ssl-redirect: "true"
+    nginx.ingress.kubernetes.io/secure-backends: "true"
   labels:
     {{- include "ibm-mq.labels" . | nindent 4 }}
 spec:
@@ -46,8 +47,12 @@ spec:
   {{- else }}
       - http:
   {{- end }}
-        paths:
+          paths:
+  {{- if .Values.route.ingress.webconsole.path }}
+          - path: {{ .Values.route.ingress.webconsole.path }}
+  {{- else }}
           - path: /
+  {{- end }}
             pathType: Prefix
             backend:
               service:
@@ -83,6 +88,9 @@ metadata:
         {{ $group | quote }}
       {{ end }}
     {{- end }}
+    nginx.ingress.kubernetes.io/backend-protocol: HTTPS
+    nginx.ingress.kubernetes.io/ssl-redirect: "false"
+    nginx.ingress.kubernetes.io/secure-backends: "true"
   labels:
     {{- include "ibm-mq.labels" . | nindent 4 }}
 spec:
@@ -99,8 +107,12 @@ spec:
   {{- else }}
       - http:
   {{- end }}
-        paths:
+          paths:
+  {{- if .Values.route.ingress.mqtraffic.path }}
+          - path: {{ .Values.route.ingress.mqtraffic.path }}
+  {{- else }}
           - path: /
+  {{- end }}
             pathType: Prefix
             backend:
               service:

@@ -30,10 +30,12 @@ spec:
   ports:
   {{- if .Values.route.loadBalancer.mqtraffic }}
   - port: 1414
+    targetPort: 1414
     name: qmgr
   {{- end }}
   {{- if .Values.route.loadBalancer.webconsole }}
   - port: 9443
+    targetPort: 9443
     name: console-https
   {{- end }}
   {{- if .Values.route.loadBalancer.loadBalancerSourceRanges }}
