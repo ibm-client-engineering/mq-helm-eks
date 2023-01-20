@@ -157,12 +157,14 @@ route:
       webconsole: 
         enable: false
         hostname: 
+        path: /
         tls: 
           enable: false 
           secret: 
       mqtraffic: 
         enable: false
         hostname: 
+        path: /
         tls: 
           enable: false
           secret: 

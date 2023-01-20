@@ -42,16 +42,16 @@ queueManager:
   multiinstance:
     enable: false
   persistence:
-#    dataPVC:
-#      enable: false
-#      name: "data"
-#      size: 2Gi
-#      storageClassName: "ebs-sc"
-#    logPVC:
-#      enable: false
-#      name: "log"
-#      size: 2Gi
-#      storageClassName: "ebs-sc"
+    dataPVC:
+      enable: false
+      name: "data"
+      size: 2Gi
+      storageClassName: "ebs-sc"
+    logPVC:
+      enable: false
+      name: "log"
+      size: 2Gi
+      storageClassName: "ebs-sc"
     qmPVC:
       enable: true
       name: "qm"
