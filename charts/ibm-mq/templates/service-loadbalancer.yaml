@@ -19,9 +19,12 @@ metadata:
   annotations: 
     service.beta.kubernetes.io/aws-load-balancer-backend-protocol: tcp
     service.beta.kubernetes.io/aws-load-balancer-cross-zone-load-balancing-enabled: 'true'
-#    service.beta.kubernetes.io/aws-load-balancer-nlb-target-type: instance
     service.beta.kubernetes.io/aws-load-balancer-nlb-target-type: instance
+    {{- if .Values.route.loadBalancer.awslbscheme }}
+    service.beta.kubernetes.io/aws-load-balancer-scheme: {{ .Values.route.loadBalancer.awslbscheme }}
+    {{- else }}
     service.beta.kubernetes.io/aws-load-balancer-scheme: internet-facing
+    {{- end }}
     service.beta.kubernetes.io/aws-load-balancer-target-group-attributes: preserve_client_ip.enabled=false
     service.beta.kubernetes.io/aws-load-balancer-type: external
   labels:

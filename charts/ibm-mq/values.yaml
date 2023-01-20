@@ -152,6 +152,7 @@ route:
     loadBalancer:
       webconsole: false
       mqtraffic: false
+      awslbscheme: internet-facing
       loadBalancerSourceRanges: []
     ingress:
       webconsole: 
