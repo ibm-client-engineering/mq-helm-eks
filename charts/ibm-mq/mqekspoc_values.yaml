@@ -31,6 +31,8 @@ queueManager:
     enable: false
     tls:
       secretName: helmsecure
+  multiinstance:
+    enable: false
   mqscConfigMaps:
     - name: helmsecure
       items:
@@ -39,19 +41,17 @@ queueManager:
     - name: helmsecure
       items:
         - mq.ini
-  multiinstance:
-    enable: false
   persistence:
     dataPVC:
       enable: false
       name: "data"
       size: 2Gi
-      storageClassName: "ebs-sc"
+      storageClassName: "efs-sc"
     logPVC:
       enable: false
       name: "log"
       size: 2Gi
-      storageClassName: "ebs-sc"
+      storageClassName: "efs-sc"
     qmPVC:
       enable: true
       name: "qm"

@@ -21,10 +21,10 @@ metadata:
   labels:
     {{- include "ibm-mq.labels" . | nindent 4 }}
 spec:
-  storageClassName: {{ default nil .Values.persistence.logPVC.storageClassName | quote }}
+  storageClassName: {{ default nil .Values.queueManager.persistence.logPVC.storageClassName | quote }}
   accessModes:
     - "ReadWriteMany"
   resources:
     requests:
-      storage: {{ .Values.persistence.logPVC.size | quote }}
+      storage: {{ .Values.queueManager.persistence.logPVC.size | quote }}
 {{- end }}
