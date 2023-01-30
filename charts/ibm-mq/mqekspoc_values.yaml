@@ -56,16 +56,15 @@ queueManager:
       enable: true
       name: "qm"
       size: 2Gi
-      storageClassName: "gp2"
+      storageClassName: "efs-sc"
 
 security:
   context:
     fsGroup: 65534
-#    fsGroupChangePolicy: onRootMismatch
     supplementalGroups: [65534]
   initVolumeAsRoot: false
-  runAsUser: 2001
-  runAsGroup: 2001
+  runAsUser: 1999
+  runAsGroup: 1999
 
 pki:
   keys:
@@ -94,7 +93,7 @@ route:
   loadBalancer:
     webconsole: false
     mqtraffic: true
-    awslbscheme: internal
+    awslbscheme: 
 #    loadBalancerSourceRanges: ["10.0.0.0/8","162.76.0.0/16","192.168.0.0/16","169.184.0.0/16","172.16.0.0/12","100.64.0.0/10","173.48.0.0/12"]
   ingress:
     webconsole: 
