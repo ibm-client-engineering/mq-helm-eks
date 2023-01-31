@@ -13,6 +13,8 @@
 # limitations under the License.
 
 license: accept
+log:
+  debug: true
 
 image:
   # repository is the container repository to use
@@ -32,7 +34,7 @@ queueManager:
     tls:
       secretName: helmsecure
   multiinstance:
-    enable: false
+    enable: true
   mqscConfigMaps:
     - name: helmsecure
       items:
@@ -43,12 +45,12 @@ queueManager:
         - mq.ini
   persistence:
     dataPVC:
-      enable: false
+      enable: true
       name: "data"
       size: 2Gi
       storageClassName: "efs-sc"
     logPVC:
-      enable: false
+      enable: true
       name: "log"
       size: 2Gi
       storageClassName: "efs-sc"
@@ -61,10 +63,11 @@ queueManager:
 security:
   context:
     fsGroup: 65534
-    supplementalGroups: [65534]
+#    fsGroup: 0
+    supplementalGroups: [65534,2001]
   initVolumeAsRoot: false
-  runAsUser: 1999
-  runAsGroup: 1999
+  runAsUser: 2001
+  runAsGroup: 2001
 
 pki:
   keys:
