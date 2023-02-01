@@ -43,22 +43,22 @@ queueManager:
     - name: helmsecure
       items:
         - mq.ini
-  persistence:
-    dataPVC:
-      enable: true
-      name: "data"
-      size: 2Gi
-      storageClassName: "efs-sc"
-    logPVC:
-      enable: true
-      name: "log"
-      size: 2Gi
-      storageClassName: "efs-sc"
-    qmPVC:
-      enable: true
-      name: "qm"
-      size: 2Gi
-      storageClassName: "efs-sc"
+persistence:
+  dataPVC:
+    enable: true
+    name: "data"
+    size: 2Gi
+    storageClassName: "efs-sc"
+  logPVC:
+    enable: true
+    name: "log"
+    size: 2Gi
+    storageClassName: "efs-sc"
+  qmPVC:
+    enable: true
+    name: "qm"
+    size: 2Gi
+    storageClassName: "efs-sc"
 
 security:
   context:

@@ -470,7 +470,7 @@ spec:
                 - ALL
       {{- end }}
   volumeClaimTemplates:
-  {{- if and (.Values.queueManager.persistence.dataPVC.enable) (eq .Values.queueManager.multiinstance.enable false) }}
+  {{- if and (.Values.persistence.dataPVC.enable) (eq .Values.queueManager.multiinstance.enable false) }}
   - metadata:
       name: {{ $dataVolumeClaimName }}
       labels:
@@ -480,13 +480,13 @@ spec:
       # default storageClass setup by Kubernetes Administrator
       #
       # Setting storageClassName to nil means use the default storage class
-      storageClassName: {{ default nil .Values.queueManager.persistence.dataPVC.storageClassName | quote }}
+      storageClassName: {{ default nil .Values.persistence.dataPVC.storageClassName | quote }}
       accessModes: [ "ReadWriteOnce" ]
       resources:
         requests:
-          storage: {{ .Values.queueManager.persistence.dataPVC.size | quote }}
+          storage: {{ .Values.persistence.dataPVC.size | quote }}
   {{- end }}
-  {{- if and (.Values.queueManager.persistence.logPVC.enable) (eq .Values.queueManager.multiinstance.enable false) }}
+  {{- if and (.Values.persistence.logPVC.enable) (eq .Values.queueManager.multiinstance.enable false) }}
   - metadata:
       name: {{ $logVolumeClaimName }}
       labels:
@@ -496,13 +496,13 @@ spec:
       # default storageClass setup by Kubernetes Administrator
       #
       # Setting storageClassName to nil means use the default storage class
-      storageClassName: {{ default nil .Values.queueManager.persistence.logPVC.storageClassName | quote }}
+      storageClassName: {{ default nil .Values.persistence.logPVC.storageClassName | quote }}
       accessModes: [ "ReadWriteOnce" ]
       resources:
         requests:
-          storage: {{ .Values.queueManager.persistence.logPVC.size | quote }}
+          storage: {{ .Values.persistence.logPVC.size | quote }}
   {{- end }}
-  {{- if or .Values.queueManager.persistence.qmPVC.enable .Values.queueManager.multiinstance.enable }}
+  {{- if or .Values.persistence.qmPVC.enable .Values.queueManager.multiinstance.enable }}
   - metadata:
       name: {{ $qmVolumeClaimName }}
       labels:
@@ -512,9 +512,9 @@ spec:
       # default storageClass setup by Kubernetes Administrator
       #
       # Setting storageClassName to nil means use the default storage class
-      storageClassName: {{ default nil .Values.queueManager.persistence.qmPVC.storageClassName | quote }}
+      storageClassName: {{ default nil .Values.persistence.qmPVC.storageClassName | quote }}
       accessModes: [ "ReadWriteOnce" ]
       resources:
         requests:
-          storage: {{ .Values.queueManager.persistence.qmPVC.size | quote }}
+          storage: {{ .Values.persistence.qmPVC.size | quote }}
   {{- end }}
