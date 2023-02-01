@@ -1,0 +1,19 @@
+{
+  "Version": "2012-10-17",
+  "Id": "MQFileSystemPolicyEFS",
+  "Statement": [
+    {
+      "Sid": "MQAccess1",
+      "Effect": "Allow",
+      "Principal": {
+        "Federated": "arn:aws:iam::748107796891:oidc-provider/oidc.eks.us-east-1.amazonaws.com/id/8B41F8F9DEEF928630B4CF5DC90D2723"
+      },
+      "Action": "sts:AssumeRoleWithWebIdentity",
+      "Condition": {
+        "StringEquals": {
+          "oidc.eks.us-east-1.amazonaws.com/id/8B41F8F9DEEF928630B4CF5DC90D2723:sub": "system:serviceaccount:kube-system:efs-csi-controller-sa"
+        }
+      }
+    }
+  ]
+}

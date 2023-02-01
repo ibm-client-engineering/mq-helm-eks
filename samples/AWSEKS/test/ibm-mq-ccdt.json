@@ -1,0 +1,20 @@
+{
+  "channel": [
+    {
+      "name": "MTLSQMCHL",
+      "clientConnection": {
+        "connection": [
+          {
+            "host": "${env.MQ_CONSOLE_DEFAULT_CCDT_HOSTNAME}",
+            "port": 1414
+          }
+        ],
+        "queueManager": "mqekspoc"
+      },
+      "transmissionSecurity": {
+        "cipherSpecification": "ANY_TLS12_OR_HIGHER"
+      },
+      "type": "clientConnection"
+    }
+  ]
+}

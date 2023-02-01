@@ -1,0 +1,25 @@
+{
+    "channel":
+    [
+        {
+            "name": "MTLSQMCHL",
+            "clientConnection":
+            {
+                "connection":
+                [
+                    {
+                        "host": "k8s-mqeks-mqekspoc-b7823e671c-fda1a65706b2eaf5.elb.us-east-1.amazonaws.com",
+                        "port": 1414
+                    }
+                ],
+                "queueManager": "mqekspoc"
+            },
+            "transmissionSecurity":
+            {
+              "cipherSpecification": "ANY_TLS12_OR_HIGHER",
+              "certificateLabel": "aceclient"
+            },
+            "type": "clientConnection"
+        }
+   ]
+}
