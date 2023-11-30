@@ -2,7 +2,7 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   annotations:
-    cert-manager.io/cluster-issuer: travelers-cluster-issuer
+    cert-manager.io/cluster-issuer: cluster-issuer
     cert-manager.io/common-name: api.mulesoft-sb.ekslb.aws.travp.net
     kubectl.kubernetes.io/last-applied-configuration: |
       {"apiVersion":"networking.k8s.io/v1","kind":"Ingress","metadata":{"annotations":{"nginx.ingress.kubernetes.io/backend-protocol":"HTTPS","nginx.ingress.kubernetes.io/configuration-snippet":"rewrite ^/app-name(/|$)(.*) /$2 break;\n","nginx.ingress.kubernetes.io/rewrite-target":"/$2","nginx.ingress.kubernetes.io/ssl-redirect":"true"},"labels":{"business-group":"business-group-id","environment":"environment-id"},"name":"rtf-eks-ingress","namespace":"rtf"},"spec":{"ingressClassName":"rtf-nginx","rules":[{"host":"api.mulesoft-sb.ekslb.aws.travp.net","http":{"paths":[{"backend":{"service":{"name":"service","port":{"number":8081}}},"path":"/app-name","pathType":"Prefix"}]}}],"tls":[{"hosts":["api.mulesoft-sb.ekslb.aws.travp.net"],"secretName":"mulesoft-sb-eks-tls"}]}}
